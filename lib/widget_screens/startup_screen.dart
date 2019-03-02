@@ -1,23 +1,33 @@
+import 'package:clone_musikbagus/widget_screens/dashboard.dart';
 import 'package:flutter/material.dart';
 
 class StartupScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    void onPressMediaSosialLogo(String mediaSosialName) {
+      Navigator.push(context,
+          MaterialPageRoute(builder: (BuildContext context) {
+        return Dashboard(
+          loginFrom: mediaSosialName,
+        );
+      }));
+    }
+
     var _logo = Image.asset(
       'assets/images/logo_musikbagus.png',
-      width: MediaQuery.of(context).size.width / 1.5,
+      width: MediaQuery.of(context).size.width / 1.7,
     );
     var _sloganLabel = Opacity(
       opacity: 0.7,
       child: Text(
         'Raya nada. Raya irama.\n Rayakan kehidupan.',
-        style: TextStyle(fontSize: 16.0, color: Colors.grey),
+        style: TextStyle(fontSize: 14.0, color: Colors.grey),
         textAlign: TextAlign.center,
       ),
     );
     var _titleLogin = Text(
       'Choose your sosial media\naccount to login',
-      style: TextStyle(fontSize: 25.0, color: Colors.white),
+      style: TextStyle(fontSize: 23.0, color: Colors.white),
       textAlign: TextAlign.center,
     );
 
@@ -35,7 +45,9 @@ class StartupScreen extends StatelessWidget {
               padding: const EdgeInsets.all(15.0),
               child: Image.asset('assets/images/logo_fb.png'),
             ),
-            onPressed: () {},
+            onPressed: () {
+              onPressMediaSosialLogo('facebook');
+            },
           ),
         ),
         Container(
@@ -49,7 +61,9 @@ class StartupScreen extends StatelessWidget {
               padding: const EdgeInsets.all(22.0),
               child: Image.asset('assets/images/logo_google.png'),
             ),
-            onPressed: () {},
+            onPressed: () {
+              onPressMediaSosialLogo('google');
+            },
           ),
         ),
       ],
