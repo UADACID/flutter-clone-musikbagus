@@ -13,7 +13,7 @@ class DefaultHeader extends StatelessWidget {
           height: 24.0,
           color: Colors.black,
         ),
-        Stack(children: <Widget>[
+        Stack(alignment: Alignment.centerLeft, children: <Widget>[
           Container(
             height: 80.0,
             color: Colors.black,
@@ -28,8 +28,9 @@ class DefaultHeader extends StatelessWidget {
           rootScreen
               ? SizedBox()
               : Container(
-                  width: 80.0,
-                  height: 80.0,
+                  padding: const EdgeInsets.only(left: 10.0),
+                  width: 50.0,
+                  height: 50.0,
                   child: RawMaterialButton(
                     // fillColor: Colors.white,
                     shape: new CircleBorder(),

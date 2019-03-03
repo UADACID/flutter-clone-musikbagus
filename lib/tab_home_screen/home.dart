@@ -1,4 +1,7 @@
 import 'package:clone_musikbagus/widget/custom_bounce_scroll_view.dart';
+import 'package:clone_musikbagus/widget/home_banner.dart';
+import 'package:clone_musikbagus/widget/home_musikologi.dart';
+import 'package:clone_musikbagus/widget/home_musikrilis.dart';
 import 'package:clone_musikbagus/widget/video_player.dart';
 import 'package:flutter/material.dart';
 
@@ -30,11 +33,12 @@ class Home extends StatelessWidget {
       body: CustomBounceScrollView(
         rootScreen: true,
         children: <Widget>[
-          _dummyCOntainer,
-          _dummyCOntainer,
-          _dummyCOntainer,
-          _dummyCOntainer,
-          _dummyCOntainer
+          HomeBanner(),
+          HomeMusikrilis(),
+          HomeMusikologi()
+          // _dummyCOntainer,
+          // _dummyCOntainer,
+          // _dummyCOntainer
         ],
         storageKey: 'listHome',
       ),

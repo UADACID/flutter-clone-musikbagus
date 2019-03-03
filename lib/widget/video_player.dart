@@ -1,9 +1,12 @@
 import 'package:clone_musikbagus/widget/default_header.dart';
+import 'package:clone_musikbagus/widget/home_musikrilis.dart';
 import 'package:flutter/material.dart';
 import 'package:chewie/chewie.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoPlayer extends StatefulWidget {
+  final Music music;
+  VideoPlayer({@required this.music});
   @override
   _VideoPlayerState createState() => _VideoPlayerState();
 }
@@ -17,16 +20,14 @@ class _VideoPlayerState extends State<VideoPlayer> {
     super.initState();
     // _videoPlayerController1 =
     //     VideoPlayerController.asset('assets/video_example.mp4');
-    _videoPlayerController1 = VideoPlayerController.network(
-        'https://r1---sn-npoe7ne6.googlevideo.com/videoplayback?clen=17418185&ipbits=0&ratebypass=yes&mime=video%2Fmp4&c=WEB&expire=1551614612&source=youtube&txp=3531432&dur=247.176&itag=18&pl=24&requiressl=yes&ei=NG57XKyhIbfA7AT8yZzgCQ&fvip=1&lmt=1541418297264050&sparams=clen,dur,ei,expire,gir,id,ip,ipbits,ipbypass,itag,lmt,mime,mip,mm,mn,ms,mv,pl,ratebypass,requiressl,source&id=o-AH7Zepeon8T2tayBEEL_EBr_9V9AHNTLP-6HKAZhvT4l&gir=yes&ip=178.140.95.77&key=cms1&signature=109BB7EDA05B50657C2D668638397444E5F4890B.637722CB2059F150F6E3AAA935DED7B2F94ED805&video_id=hlznpxNGFGQ&title=Clean+Bandit+-+Baby+%28feat.+Marina+%26+Luis+Fonsi%29+%5BOfficial+Video%5D&rm=sn-gvnuxaxjvh-c35d7e,sn-n8vr7ez&req_id=9594e85d7c37a3ee&redirect_counter=2&cms_redirect=yes&ipbypass=yes&mip=36.72.215.121&mm=29&mn=sn-npoe7ne6&ms=rdu&mt=1551596833&mv=m');
+    _videoPlayerController1 = VideoPlayerController.network(widget.music.uri);
     _chewieController = ChewieController(
       videoPlayerController: _videoPlayerController1,
       aspectRatio: 1.5,
       showControls: true,
       placeholder: Container(
         color: Colors.black,
-        // child: Image.network(
-        //     'https://hellosehat.com/wp-content/uploads/2018/05/shutterstock_611045375.jpg'),
+        child: Image.asset(widget.music.assetUri),
       ),
       autoInitialize: true,
     );
@@ -50,8 +51,14 @@ class _VideoPlayerState extends State<VideoPlayer> {
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: <Widget>[
-            Chewie(
-              controller: _chewieController,
+            Hero(
+              child: Material(
+                color: Colors.transparent,
+                child: Chewie(
+                  controller: _chewieController,
+                ),
+              ),
+              tag: widget.music.assetUri,
             ),
             Container(
               decoration: BoxDecoration(
@@ -72,14 +79,20 @@ class _VideoPlayerState extends State<VideoPlayer> {
             ),
             Text(
               'Musikrilis',
-              style: TextStyle(color: Colors.white, fontSize: 28.0),
+              style: TextStyle(color: Colors.white, fontSize: 25.0),
             ),
             SizedBox(
               height: 20.0,
             ),
-            Text(
-              'Beby',
-              style: TextStyle(color: Colors.grey, fontSize: 18.0),
+            Hero(
+              child: Material(
+                color: Colors.transparent,
+                child: Text(
+                  widget.music.title,
+                  style: TextStyle(color: Colors.grey, fontSize: 16.0),
+                ),
+              ),
+              tag: widget.music.title,
             )
           ],
         ),
