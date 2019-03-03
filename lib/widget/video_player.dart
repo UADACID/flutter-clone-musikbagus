@@ -54,8 +54,19 @@ class _VideoPlayerState extends State<VideoPlayer> {
             Hero(
               child: Material(
                 color: Colors.transparent,
-                child: Chewie(
-                  controller: _chewieController,
+                child: Theme(
+                  child: DefaultTextStyle(
+                    style: TextStyle(color: Colors.white),
+                    child: Chewie(
+                      controller: _chewieController,
+                    ),
+                  ),
+                  data: Theme.of(context).copyWith(
+                    dialogBackgroundColor: Colors.black26,
+                    iconTheme: IconThemeData(color: Colors.white),
+                    accentColor: Colors.red,
+                    disabledColor: Colors.white,
+                  ),
                 ),
               ),
               tag: widget.music.assetUri,
