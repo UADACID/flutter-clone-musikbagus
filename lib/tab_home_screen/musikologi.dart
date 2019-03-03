@@ -1,4 +1,4 @@
-import 'package:clone_musikbagus/widget/default_header.dart';
+import 'package:clone_musikbagus/widget/custom_bounce_scroll_view.dart';
 import 'package:flutter/material.dart';
 
 class Musikologi extends StatelessWidget {
@@ -13,23 +13,16 @@ class Musikologi extends StatelessWidget {
       ),
     );
     return Scaffold(
-      body: Column(
+      body: CustomBounceScrollView(
+        rootScreen: true,
         children: <Widget>[
-          DefaultHeader(),
-          Expanded(
-            child: ListView(
-              key: PageStorageKey('listMusikologi'),
-              shrinkWrap: true,
-              children: <Widget>[
-                _dummyCOntainer,
-                _dummyCOntainer,
-                _dummyCOntainer,
-                _dummyCOntainer,
-                _dummyCOntainer
-              ],
-            ),
-          )
+          _dummyCOntainer,
+          _dummyCOntainer,
+          _dummyCOntainer,
+          _dummyCOntainer,
+          _dummyCOntainer
         ],
+        storageKey: 'listMusikologi',
       ),
     );
   }
