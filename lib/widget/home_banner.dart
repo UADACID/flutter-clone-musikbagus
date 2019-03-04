@@ -2,6 +2,12 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
+class Banner {
+  final String uri;
+
+  Banner({this.uri});
+}
+
 class HomeBanner extends StatefulWidget {
   @override
   _HomeBannerState createState() => _HomeBannerState();
@@ -12,6 +18,12 @@ class _HomeBannerState extends State<HomeBanner> {
   Timer timer;
   int currentIndex = 0;
 
+  List<Banner> _banners = <Banner>[
+    Banner(uri: 'assets/images/banner1.png'),
+    Banner(uri: 'assets/images/banner2.png'),
+    Banner(uri: 'assets/images/banner3.png')
+  ];
+
   @override
   void initState() {
     _pageController = PageController(initialPage: 0, keepPage: false);
@@ -19,7 +31,7 @@ class _HomeBannerState extends State<HomeBanner> {
       currentIndex += 1;
       _pageController.animateToPage(currentIndex,
           duration: Duration(milliseconds: 400), curve: Curves.fastOutSlowIn);
-      if (currentIndex == 3) {
+      if (currentIndex == _banners.length) {
         currentIndex = 0;
         _pageController.animateToPage(currentIndex,
             duration: Duration(milliseconds: 400), curve: Curves.linear);
@@ -37,46 +49,45 @@ class _HomeBannerState extends State<HomeBanner> {
 
   @override
   Widget build(BuildContext context) {
-    var _buildDot = Align(
+    List<Widget> _buildDots() {
+      var temph = <Widget>[];
+      for (var i = 0; i < _banners.length; i++) {
+        temph.add(Container(
+          margin: const EdgeInsets.symmetric(horizontal: 2.5),
+          decoration: new BoxDecoration(
+            color: currentIndex == i ? Colors.red : Colors.white,
+            shape: BoxShape.circle,
+          ),
+          height: 10.0,
+          width: 10.0,
+        ));
+      }
+
+      return temph;
+    }
+
+    var _buildDotContainer = Align(
       alignment: Alignment.bottomCenter,
       child: Container(
           height: 30.0,
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Container(
-                decoration: new BoxDecoration(
-                  color: currentIndex == 0 ? Colors.red : Colors.white,
-                  shape: BoxShape.circle,
-                ),
-                height: 10.0,
-                width: 10.0,
-              ),
-              SizedBox(
-                width: 5.0,
-              ),
-              Container(
-                decoration: new BoxDecoration(
-                  color: currentIndex == 1 ? Colors.red : Colors.white,
-                  shape: BoxShape.circle,
-                ),
-                height: 10.0,
-                width: 10.0,
-              ),
-              SizedBox(
-                width: 5.0,
-              ),
-              Container(
-                decoration: new BoxDecoration(
-                  color: currentIndex == 2 ? Colors.red : Colors.white,
-                  shape: BoxShape.circle,
-                ),
-                height: 10.0,
-                width: 10.0,
-              )
-            ],
+            children: _buildDots(),
           )),
     );
+
+    List<Widget> _buildListWidget() {
+      var temph = <Widget>[];
+      for (var i = 0; i < _banners.length; i++) {
+        temph.add(Container(
+          color: Colors.pink,
+          child: Image.asset(_banners[i].uri, fit: BoxFit.cover),
+        ));
+      }
+
+      return temph;
+    }
+
     return Container(
       height: MediaQuery.of(context).size.height / 4,
       width: double.infinity,
@@ -91,25 +102,9 @@ class _HomeBannerState extends State<HomeBanner> {
                 currentIndex = index;
               });
             },
-            children: <Widget>[
-              Container(
-                color: Colors.pink,
-                child:
-                    Image.asset('assets/images/banner1.png', fit: BoxFit.cover),
-              ),
-              Container(
-                color: Colors.cyan,
-                child:
-                    Image.asset('assets/images/banner2.png', fit: BoxFit.cover),
-              ),
-              Container(
-                color: Colors.deepPurple,
-                child:
-                    Image.asset('assets/images/banner3.png', fit: BoxFit.cover),
-              ),
-            ],
+            children: _buildListWidget(),
           ),
-          _buildDot
+          _buildDotContainer
         ],
       ),
     );
